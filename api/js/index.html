@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mydiv{
+            display: flex;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+        .card {
+  width: 18rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+  height: 10rem;
+  width: 100%;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  font-size: 1rem;
+  color: #666;
+}
+
+    </style>
+</head>
+<body>
+    <div id="mydiv">
+        <div class="card">
+            <img src="A1.png" alt="" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">A101</h5>
+                <p class="card-text">1</p>
+            </div>
+        </div>
+
+    </div>
+    
+    
+    
+    
+    <script>
+        fetch("http://localhost/hotelbooking/api.php/")
+        .then(aita => aita.json())
+        .then(data => {
+            myFunc(data)
+            console.log(data);
+        })
+
+        function myFunc(data) {
+  const div = document.getElementById("mydiv");
+
+  // Create a card for each item in the data array
+  for (const item of data) {
+    // Create the card elements
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    const cardImg = document.createElement("img");
+    cardImg.classList.add("card-img-top");
+    cardImg.src = item.images;
+
+    const cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+
+    const cardTitle = document.createElement("h5");
+    cardTitle.classList.add("card-title");
+    cardTitle.innerText ="Room Name: "+ item.name;
+
+    const cardText = document.createElement("p");
+    cardText.classList.add("card-text");
+    cardText.innerText ="Capacity: " + item.capacity;
+
+    // Append the card elements to the card container
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardText);
+
+    card.appendChild(cardImg);
+    card.appendChild(cardBody);
+
+    // Append the card container to the parent element
+    div.appendChild(card);
+  }
+}
+
+    </script>
+</body>
+</html>
